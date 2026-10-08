@@ -20,6 +20,9 @@ set.seed(1234)
 # ==============================================================================
 load("./data/NK_Paper_Final_Processed.RData")
 
+# The processed RData includes LOC478984 and LOC486692, which were added
+# from the RefSeq-based tximport results and retained in the gene mapping
+# during preprocessing.
 
 # ==============================================================================
 # SECTION 2. PCA
@@ -156,6 +159,7 @@ res_df <- as.data.frame(res)
 res_df$ensembl_gene_id <- rownames(res_df)
 
 #### 5.2 Merge with Ensembl Mapping --------------------------------------------
+# Retain genes with available gene-symbol annotations for downstream visualization.
 res_annotated <- merge(res_df, mapping, by = "ensembl_gene_id", all.x = FALSE)
 
 #### 5.3 Assign Final Gene Identifiers -----------------------------------------
